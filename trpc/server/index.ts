@@ -1,10 +1,10 @@
-import { publicProcedure, router, createContext } from './trpc';
+import { publicProcedure, router, createContext, loggedProcedure } from './trpc';
 import z from "zod";
 import fs from "fs";
 import { createHTTPServer } from '@trpc/server/adapters/standalone';
 
 const appRouter = router({
-  createTodo: publicProcedure
+  createTodo: loggedProcedure
     .input(z.object({
       title: z.string().min(1).max(1000),
       description: z.string().min(1).max(1000)
@@ -21,7 +21,7 @@ const appRouter = router({
     }),
   getTodo: publicProcedure
     .query(async (opts) => {
-      console.log(opts.ctx.session);
+      console.log(opts.ctx.session)
       let todos = fs.readFileSync("a.txt", "utf8");
       return todos;
     })
