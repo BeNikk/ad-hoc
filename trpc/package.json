@@ -11,6 +11,12 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "@types/node": "^24.9.1",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@trpc/client": "^11.7.0",
+    "@trpc/server": "^11.7.0",
+    "zod": "^4.1.12"
   }
 }
