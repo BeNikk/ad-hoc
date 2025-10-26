@@ -16,8 +16,13 @@ const appRouter = router({
       const todoId = Math.random() * 1000;
       const todo = { todoId, title, description };
       //db insert 
-      fs.writeFileSync("a.txt", JSON.stringify(todo));
+      fs.appendFileSync("a.txt", JSON.stringify(todo));
       return todo;
+    }),
+  getTodo: publicProcedure
+    .query(async () => {
+      let todos = fs.readFileSync("a.txt", "utf8");
+      return todos;
     })
 });
 
