@@ -1,4 +1,4 @@
-import { publicProcedure, router } from './trpc';
+import { publicProcedure, router, createContext } from './trpc';
 import z from "zod";
 import fs from "fs";
 import { createHTTPServer } from '@trpc/server/adapters/standalone';
@@ -20,7 +20,8 @@ const appRouter = router({
       return todo;
     }),
   getTodo: publicProcedure
-    .query(async () => {
+    .query(async (opts) => {
+      console.log(opts.ctx.session);
       let todos = fs.readFileSync("a.txt", "utf8");
       return todos;
     })
@@ -32,6 +33,7 @@ export type AppRouter = typeof appRouter;
 
 const server = createHTTPServer({
   router: appRouter,
+  createContext
 });
 
 server.listen(3000);

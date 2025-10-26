@@ -4,7 +4,16 @@ import { initTRPC } from '@trpc/server';
  * Initialization of tRPC backend
  * Should be done only once per backend!
  */
-const t = initTRPC.create();
+export const createContext = async () => {
+  const session = "mysession";
+
+  return {
+    session,
+  };
+};
+
+export type Context = Awaited<ReturnType<typeof createContext>>;
+const t = initTRPC.context<Context>().create();
 
 /**
  * Export reusable router and procedure helpers
