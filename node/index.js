@@ -7,6 +7,7 @@ If close callbacks are pending, then the event loop runs again. otherwise it jus
 const fs = require("fs");
 process.env.UV_THREADPOOL_SIZE = 10; // increasing the number of threads from default 4 to 10 (max 128)
 require("./app.js");
+// when i require something, the file will automatically run, even though we have not called it here
 /*
 setTimeout(() => {
   console.log("TImer");
@@ -35,7 +36,7 @@ fs.readFile("a.txt", 'utf-8', () => {
 })
 console.log("hello world");
 
-
+// this is immediately invoked
 (function() {
   // all code here
 })()
